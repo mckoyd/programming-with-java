@@ -6,10 +6,20 @@ const addKidToBody = kid => document.body.appendChild(kid);
 
 const addKid = (el, kid) => el.appendChild(kid);
 
-const addText = (el, text) => {
+// options
+// tagName: [<startOfString>, <EndOfString>]
+
+const addText = (el, text, options) => {
   const tNode = document.createTextNode(text);
   el.append(tNode);
 };
+
+// const addFormatTags = (formatTags, text) => {
+//     let res = '';
+//     for(format in formatTags) {
+//         res = `<`
+//     }
+// }
 
 const addKids = (el, kids) => {
   kids.forEach(kid => {
@@ -40,7 +50,6 @@ addStyles = (el, styles) => {
 
 const setEl = (type, stuff, ...stepKids) => {
   const el = document.createElement(type);
-  console.log(stuff);
   if (!stuff) return el;
 
   if (Array.isArray(stuff)) {
@@ -70,18 +79,25 @@ const a = (...args) => setEl("a", ...args);
 const button = (...args) => setEl("button", ...args);
 const div = (...args) => setEl("div", ...args);
 const h1 = (...args) => setEl("h1", ...args);
+const h2 = (...args) => setEl("h2", ...args);
 const header = (...args) => setEl("header", ...args);
 const p = (...args) => setEl("p", ...args);
 const span = (...args) => setEl("span", ...args);
-const em = () => setEl("em");
+const em = (...args) => setEl("em", ...args);
 
 addKidToBody(
   header(
     h1(
       {
-        id: "header"
+        id: "title"
       },
       "The Stuff I Want To Do Next"
+    ),
+    h2(
+      {
+        className: "sub-title"
+      },
+      "Or At Least Hope to Do Next"
     )
   )
 );
@@ -91,7 +107,8 @@ addKidToBody(
     { id: "desc-section" },
     p(
       { className: "desc" },
-      "Although time is definitely a factor, I wrote this page to compile the multitude of tangents, budding interests, and mild obsessions I hope to explore; hopefully it will inspire me to actually explore them!"
+      em("Although "),
+      "time is definitely a factor, I wrote this page to compile the multitude of tangents, budding interests, and mild obsessions I hope to explore; hopefully it will inspire me to actually explore them!"
     )
   )
 );
